@@ -1,47 +1,46 @@
 import os
-import requests
-from pytube import Playlist
-from youtube_transcript_api import YouTubeTranscriptApi
+from pytube import YouTube, Playlist
+from pytube.exceptions import AgeRestrictedError
 
-
-# Function to download a video from YouTube
-def download_video(video_url, output_path):
+def download_video_and_captions(video_url, output_path):
+    # Fetch the video details using pytube
     yt = YouTube(video_url)
+
+    # Download the highest resolution video
     stream = yt.streams.get_highest_resolution()
-    stream.download(output_path)
-    return yt.title
+    print(f"Downloading video: {yt.title}")
+    video_filepath = stream.download(output_path)
 
-# Function to download closed captions for a video
-def download_captions(video_url, output_path):
-    video_id = video_url.split("v=")[1]
-    try:
-        transcripts = YouTubeTranscriptApi.get_transcripts([video_id], languages=["en"])
-        if transcripts:
-            with open(os.path.join(output_folder, f"{video_id}_captions.xml"), 'w', encoding='utf-8') as f:
-                f.write(str(transcripts[0]))
-            return "Captions downloaded successfully."
-        else:
-            return "No captions available for this video."
-    except Exception as e:
-        return f"Failed to download captions: {str(e)}"
+    base_filepath = os.path.splitext(video_filepath)[0]
 
-# Function to download the first 10 videos and their captions from a playlist
-def download_playlist(playlist_url, output_folder, max_videos=10):
-    playlist = Playlist(playlist_url)
-    playlist.populate_video_urls()
+    # Download English auto-generated captions
+    yt.bypass_age_gate()
+    
+    caption = yt.captions["a.en"]
+    if caption:
+        caption_file_content = caption.xml_captions
+        caption_filepath = f"{base_filepath}_captions.xml"
+        with open(caption_filepath, 'w', encoding='utf-8') as f:
+            f.write(caption_file_content)
+        print(f"Captions downloaded for {yt.title}")
+    else:
+        print(f"No English captions found for {yt.title}")
 
-    if not os.path.exists(output_folder):
-        os.makedirs(output_folder)
 
-    for i, video_url in enumerate(playlist.video_urls[:max_videos]):
-        video_title = download_video(video_url, output_folder)
-        captions_output_path = os.path.join(output_folder, f"{video_title}_captions.xml")
-        result = download_captions(video_url, captions_output_path)
-        print(f"Video {i + 1}: {video_title} - {result}")
+def download_from_playlist(url, video_count=10, output_path="./output"):
+    playlist = Playlist(url)
+    for video_url in playlist.video_urls:
+        try:
+            output_folder = "output"
+            video_title = download_video_and_captions(video_url, output_folder)
+            video_count -= 1
+            if video_count < 1:
+                break
+        except AgeRestrictedError:
+            print(f"Skipped age-restricted video: {video_url}")
 
 if __name__ == "__main__":
     playlist_url = "https://www.youtube.com/playlist?list=PLI1yx5Z0Lrv77D_g1tvF9u3FVqnrNbCRL"
-    output_folder = "playlist_output"
-    max_videos = 10
-
-    download_playlist(playlist_url, output_folder, max_videos)
+    output_path = 'output'
+    count = 10
+    download_from_playlist(playlist_url, count, output_path)
