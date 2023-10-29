@@ -1,47 +1,62 @@
 import os
-import requests
-from pytube import Playlist
+import json
+from pytube import YouTube, Playlist
+from pytube.exceptions import AgeRestrictedError
 from youtube_transcript_api import YouTubeTranscriptApi
 
+def format_time(seconds):
+    # Convert seconds to HH:MM:SS,mmm format
+    hh, rem = divmod(seconds, 3600)
+    mm, ss = divmod(rem, 60)
+    return f"{int(hh):02}:{int(mm):02}:{int(ss):02},{int(1000*(ss-int(ss))):03}"
 
-# Function to download a video from YouTube
+def json_to_srt(transcript, srt_filepath):
+    with open(srt_filepath, 'w', encoding='utf-8') as f:
+        for idx, entry in enumerate(transcript, 1):
+            start_time = entry['start']
+            end_time = start_time + entry['duration']
+
+            f.write(str(idx) + '\n')
+            f.write(format_time(start_time) + " --> " + format_time(end_time) + '\n')
+            f.write(entry['text'] + '\n\n')
+
 def download_video(video_url, output_path):
+    # Fetch the video details using pytube
     yt = YouTube(video_url)
+
+    # Download the highest resolution video
     stream = yt.streams.get_highest_resolution()
-    stream.download(output_path)
-    return yt.title
+    print(f"Downloading video: {yt.title}")
+    video_filepath = stream.download(output_path)
+    base_filepath = os.path.splitext(video_filepath)[0]
+    return base_filepath
 
-# Function to download closed captions for a video
-def download_captions(video_url, output_path):
+def download_caption_convert_to_srt(video_url, video_path):
+    # Fetching the transcript using youtube_transcript_api
     video_id = video_url.split("v=")[1]
-    try:
-        transcripts = YouTubeTranscriptApi.get_transcripts([video_id], languages=["en"])
-        if transcripts:
-            with open(os.path.join(output_folder, f"{video_id}_captions.xml"), 'w', encoding='utf-8') as f:
-                f.write(str(transcripts[0]))
-            return "Captions downloaded successfully."
-        else:
-            return "No captions available for this video."
-    except Exception as e:
-        return f"Failed to download captions: {str(e)}"
+    transcript = YouTubeTranscriptApi.get_transcript(video_id)
+    srt_filepath = video_path + '.srt'
+    print(srt_filepath)
 
-# Function to download the first 10 videos and their captions from a playlist
-def download_playlist(playlist_url, output_folder, max_videos=10):
-    playlist = Playlist(playlist_url)
-    playlist.populate_video_urls()
+    # Saving the transcript to an SRT file
+    json_to_srt(transcript, srt_filepath)
+    return "Captions downloaded successfully."
 
-    if not os.path.exists(output_folder):
-        os.makedirs(output_folder)
-
-    for i, video_url in enumerate(playlist.video_urls[:max_videos]):
-        video_title = download_video(video_url, output_folder)
-        captions_output_path = os.path.join(output_folder, f"{video_title}_captions.xml")
-        result = download_captions(video_url, captions_output_path)
-        print(f"Video {i + 1}: {video_title} - {result}")
+def download_from_playlist(url, video_count=10, output_path="./downloads"):
+    playlist = Playlist(url)
+    for video_url in playlist.video_urls:
+        try:
+            video_title = download_video(video_url, output_path)
+            download_caption_convert_to_srt(video_url, video_title)
+            video_count -= 1
+            if video_count < 1:
+                break
+            
+        except AgeRestrictedError:
+            print(f"Skipped age-restricted video: {video_url}")
 
 if __name__ == "__main__":
     playlist_url = "https://www.youtube.com/playlist?list=PLI1yx5Z0Lrv77D_g1tvF9u3FVqnrNbCRL"
-    output_folder = "playlist_output"
-    max_videos = 10
-
-    download_playlist(playlist_url, output_folder, max_videos)
+    output_path = 'downloads'
+    count = 10
+    download_from_playlist(playlist_url, count, output_path)
