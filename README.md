@@ -7,7 +7,7 @@ Wenjun Yu (NetID: wy2312)
 branch:  
 https://github.com/WenjunYuAnny/AI_Project_Foreign_Whisper/tree/Milestone-1
 
-Last commit: 
+Last commit:  
 https://github.com/WenjunYuAnny/AI_Project_Foreign_Whisper/commit/f5691ce09a3fe196ebf4b1e598e6e27879790ffe
 
 Screenshots of videos and captions downloaded: 
