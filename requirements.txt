@@ -1,2 +1,7 @@
 pytube==15.0.0
 youtube-transcript-api==0.6.1
+moviepy==1.0.3
+git+https://github.com/openai/whisper.git@b38a1f20f4b23f3f3099af2c3e0ca95627276ddf#egg=whisper
+
+
+
