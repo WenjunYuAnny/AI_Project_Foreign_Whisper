@@ -30,8 +30,14 @@ def transcribe_video(video_path, audio_dir_path, transcript_dir_path):
     #save the transcript
     transcript_filename = os.path.splitext(filename)[0] + ".txt"
     transcript_output_path = os.path.join(transcript_dir_path, transcript_filename)
-    with open(transcript_output_path, 'w') as f:
-        f.write(transcript["text"])
+    with open(transcript_output_path, 'a') as f:
+        for i, segment in enumerate(transcript['segments'], start=1):
+            start_time = segment['start']
+            end_time = segment['end']
+            text = segment['text']
+            f.write(f"{i}\n")
+            f.write(f"{start_time} --> {end_time}\n")
+            f.write(f"{text}\n\n")
     print(f"Saved transcript from {filename}")
 
 def transcribe_video_dir(video_dir_path, audio_dir_path, transcript_dir_path):
