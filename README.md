@@ -2,25 +2,16 @@
 Sheel Patel (NetID: sjp9507)  
 Wenjun Yu (NetID: wy2312)
 
-## Milestone-1 
-branch:  
-https://github.com/WenjunYuAnny/AI_Project_Foreign_Whisper/tree/Milestone-1 
+## Milestone-3
+We translated the transcript from English to French using t5_base model
 
-Screenshots of videos and captions downloaded: 
-![image](https://github.com/WenjunYuAnny/AI_Project_Foreign_Whisper/assets/130470692/0ec6b0aa-e3bb-49cf-86c1-e598c36428e1)
-
-Instructions:  
-pip install -r requirements.txt  
-python download_playlist.py 
-
-## Milestone-2
-branch:    
-https://github.com/WenjunYuAnny/AI_Project_Foreign_Whisper/tree/Milestone-2
-
-![image](https://github.com/WenjunYuAnny/AI_Project_Foreign_Whisper/assets/130470692/f55d0b2c-ff26-4e73-8c93-20ef6a515a6b)
-
-Instructions:  
-install ffmpeg  
+Instructions:   
 pip install -r requirements.txt    
-python video_transcribe.py 
+python translate.py 
+
+![image](https://github.com/WenjunYuAnny/AI_Project_Foreign_Whisper/assets/130470692/dc9ec575-174d-48a1-bb0d-b38bc538df37)
+
+![image](https://github.com/WenjunYuAnny/AI_Project_Foreign_Whisper/assets/130470692/339496bd-4804-4346-97d3-7732fc4e96a2)
+
+
 
