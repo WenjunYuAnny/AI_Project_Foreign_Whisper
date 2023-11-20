@@ -14,6 +14,9 @@ pip install -r requirements.txt
 python video_transcribe.py 
 
 ## Milestone-3
+branch:  
+https://github.com/WenjunYuAnny/AI_Project_Foreign_Whisper/tree/Milestone-3
+
 We translated the transcript from English to French using t5_base model
 
 Instructions:   
