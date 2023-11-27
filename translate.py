@@ -62,7 +62,7 @@ def text_to_srt(original_script, translated_script_text):
 
 def save_srt(source_path, output_dir, translated_script):
     filename = os.path.basename(source_path)
-    output_path = os.path.join(output_dir, filename) + '.srt'
+    output_path = os.path.join(output_dir, filename)
     with open(output_path, 'w', encoding='utf-8') as file:
         file.writelines(translated_script)   
 
