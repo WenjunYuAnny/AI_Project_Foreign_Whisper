@@ -27,5 +27,15 @@ python translate.py
 
 ![image](https://github.com/WenjunYuAnny/AI_Project_Foreign_Whisper/assets/130470692/339496bd-4804-4346-97d3-7732fc4e96a2)
 
+## Milestone-4
+branch:  
+https://github.com/WenjunYuAnny/AI_Project_Foreign_Whisper/tree/Milestone-4
+
+We converted the French transcripts to audio using the Bark text-to-speech model
+
+Instructions:   
+text_to_speech.ipynb
+
+
 
 
