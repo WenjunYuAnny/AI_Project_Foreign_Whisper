@@ -36,6 +36,13 @@ We converted the French transcripts to audio using the Bark text-to-speech model
 Instructions:   
 text_to_speech.ipynb
 
+![translated_audio_00_all](https://github.com/WenjunYuAnny/AI_Project_Foreign_Whisper/assets/130470692/3e6bbc74-b1d4-4bef-9d8d-128d0c3eb956)
+
+![translated_audio_01](https://github.com/WenjunYuAnny/AI_Project_Foreign_Whisper/assets/130470692/b6061595-de9c-470b-bad9-95f967f6a2e1)
+
+![translated_audio_02](https://github.com/WenjunYuAnny/AI_Project_Foreign_Whisper/assets/130470692/b59d4df3-1035-4990-aa02-a225bc448bfe)
+
+More screenshots in the branch Milestone-4
 
 
 
