@@ -4,3 +4,8 @@ transcript/
 transcript_srt/
 translated_srt/
 translated_audio/
+translated_audio_time/
+test/
+output/
+
+__pycache__/
