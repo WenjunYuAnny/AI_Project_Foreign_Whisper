@@ -2,12 +2,12 @@
 Sheel Patel (NetID: sjp9507)  
 Wenjun Yu (NetID: wy2312)
 
-## Milestone-5
-Hugging Face UI Page:  
-https://huggingface.co/spaces/sheel1206/Foreign-Whisper
-
+## Milestone-5   
 Sample video output:  
-[https://drive.google.com/file/d/1_01-QQ_fCU7Joc_B7ueI-ZEIzuj3vijl/view?usp=drive_link](https://drive.google.com/file/d/1_01-QQ_fCU7Joc_B7ueI-ZEIzuj3vijl/view?usp=sharing)
+https://drive.google.com/file/d/1_01-QQ_fCU7Joc_B7ueI-ZEIzuj3vijl/view?usp=drive_link
+
+Hugging Face UI Page:  
+https://aiprojectforeignwhisper-idudtcmzq6dxs8ycllhbwq.streamlit.app/
 
 Pitch Video:  
 https://youtu.be/aY2PGdn3T9g
