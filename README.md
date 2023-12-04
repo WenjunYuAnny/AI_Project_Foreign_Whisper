@@ -19,7 +19,7 @@ foreign_whisper_compile.py
 Text_to_speech_with_time.ipynb  
 (For the translated voiceover part, we use Colab for GPU to produce the full length sample video. The code is a bit different than the one in the py file because of GPU issues)
 app.py
-(This is the Hugging Face UI code)
+(This is the UI code)
 
 Instructions:   
 pip install -r requirements.txt   
