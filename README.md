@@ -7,5 +7,6 @@ https://drive.google.com/file/d/1_01-QQ_fCU7Joc_B7ueI-ZEIzuj3vijl/view?usp=drive
 Pitch Video:  
 https://youtu.be/aY2PGdn3T9g
 
-
+Final code:
+foreign_whisper_compile.py
 
